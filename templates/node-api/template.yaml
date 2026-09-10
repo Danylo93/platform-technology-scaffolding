@@ -2,16 +2,29 @@ apiVersion: scaffolder.platform.lab/v1
 kind: TechnologyTemplate
 metadata:
   name: node-api
-  version: 1.0.0
+  version: 2.0.0
 spec:
   owner: platform-engineering
   runtime: nodejs
   port: 8080
   pipeline: default
+  registry:
+    provider: harbor
+    host: harbor.local
+    project: platform-lab
+  delivery:
+    strategy: gitops
+    engine: argocd
+    packaging: helm
+  cluster:
+    platform: openshift-local
   environments:
-    - ti
-    - hml
-    - prod
+    - name: ti
+      namespace: platform-ti
+    - name: hml
+      namespace: platform-hml
+    - name: prod
+      namespace: platform-prod
   generatedBranches:
     - master
     - deployment_files
