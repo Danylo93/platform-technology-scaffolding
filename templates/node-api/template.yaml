@@ -1,0 +1,22 @@
+apiVersion: scaffolder.platform.lab/v1
+kind: TechnologyTemplate
+metadata:
+  name: node-api
+  version: 1.0.0
+spec:
+  owner: platform-engineering
+  runtime: nodejs
+  port: 8080
+  pipeline: default
+  environments:
+    - ti
+    - hml
+    - prod
+  generatedBranches:
+    - master
+    - deployment_files
+  requiredResources:
+    - Deployment
+    - Service
+    - Route
+    - ConfigMap
