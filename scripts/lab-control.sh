@@ -34,6 +34,9 @@ case "$action" in
         deployment/platform-sample-application --timeout=180s
     done
     systemctl --user start "$runner"
+    if systemctl --user cat platform-argocd-local.service >/dev/null 2>&1; then
+      systemctl --user start platform-argocd-local.service
+    fi
     ;;
   stop)
     if pgrep -f '[/]Runner.Worker' >/dev/null; then
@@ -41,6 +44,9 @@ case "$action" in
       exit 1
     fi
     systemctl --user stop "$runner"
+    if systemctl --user cat platform-argocd-local.service >/dev/null 2>&1; then
+      systemctl --user stop platform-argocd-local.service
+    fi
     mapfile -t nodes < <(docker ps -a --filter "label=io.x-k8s.kind.cluster=$cluster" --format '{{.Names}}')
     if ((${#nodes[@]})); then
       docker stop --timeout 30 "${nodes[@]}"

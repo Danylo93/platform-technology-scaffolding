@@ -40,6 +40,24 @@ Docker, Git, curl, Python 3/PyYAML, Helm and kubectl with kind-platform-lab acce
 setup-node provides Node 22. For private repositories, configure Argo repository
 access outside Git. Existing SSH keys and credentials are never generated or copied.
 
+## Local Argo CD URL
+
+The optional user service exposes Argo only on 127.0.0.1:8443 and reconnects
+automatically when its pod or the cluster restarts. To install it:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp scripts/platform-argocd-local.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now platform-argocd-local.service
+sudo python3 scripts/configure-argocd-host.py
+```
+
+Open https://argocd.platform.test:8443. The hosts helper preserves existing
+entries and backs up /etc/hosts before adding the name. Argo keeps its existing
+login and self-signed TLS certificate, so the browser may show a certificate
+warning. lab-control.sh also starts/stops this service when installed.
+
 ## Verification
 
 After registering the existing runner in ~/actions-runner, its user service can

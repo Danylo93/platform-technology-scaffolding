@@ -1,0 +1,13 @@
+[Unit]
+Description=Local HTTPS access to Argo CD
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/kubectl --context=kind-platform-lab --namespace=argocd port-forward --address=127.0.0.1 service/argocd-server 8443:443
+Restart=always
+RestartSec=5
+TimeoutStopSec=10
+
+[Install]
+WantedBy=default.target
