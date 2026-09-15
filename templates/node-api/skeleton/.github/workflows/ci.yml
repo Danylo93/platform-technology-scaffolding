@@ -1,0 +1,20 @@
+name: Platform CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: platform-ci-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    uses: Danylo93/platform-pipeline-templates/.github/workflows/platform-default.yml@__PIPELINE_SHA__
+    with:
+      image_name: __SERVICE_NAME__
+      application_prefix: __SERVICE_NAME__

@@ -1,0 +1,28 @@
+name: Promote image
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Destination environment
+        required: true
+        type: choice
+        options:
+          - hml
+          - prod
+      image_tag:
+        description: Git SHA tag already deployed in the preceding environment
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    uses: Danylo93/platform-pipeline-templates/.github/workflows/platform-gitops.yml@__PIPELINE_SHA__
+    with:
+      environment: ${{ inputs.environment }}
+      image_tag: ${{ inputs.image_tag }}
+      image_name: __SERVICE_NAME__
+      application_prefix: __SERVICE_NAME__

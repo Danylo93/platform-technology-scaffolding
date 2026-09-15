@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: __SERVICE_NAME__-ti
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:__GITHUB_OWNER__/__SERVICE_NAME__.git
+    targetRevision: deployment_files
+    path: gitops/chart
+    helm:
+      valueFiles:
+        - ../environments/ti/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: platform-ti
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

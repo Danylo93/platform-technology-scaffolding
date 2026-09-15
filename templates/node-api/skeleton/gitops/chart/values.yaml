@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: platform-registry:5000/__SERVICE_NAME__
+  tag: "0000000000000000000000000000000000000000"
+  pullPolicy: Always
+
+environment: ti
+
+service:
+  port: 8080
+  targetPort: 8080
+
+route:
+  enabled: false
+
+probes:
+  readiness:
+    path: /health
+  liveness:
+    path: /health
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 250m
+    memory: 96Mi

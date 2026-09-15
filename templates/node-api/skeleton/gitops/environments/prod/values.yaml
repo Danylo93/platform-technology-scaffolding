@@ -1,0 +1,5 @@
+replicaCount: 3
+environment: prod
+image:
+  repository: platform-registry:5000/__SERVICE_NAME__
+  tag: "0000000000000000000000000000000000000000"
