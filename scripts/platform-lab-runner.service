@@ -7,6 +7,7 @@ Type=simple
 WorkingDirectory=%h/actions-runner
 ExecStart=%h/actions-runner/run.sh
 Environment=RUNNER_MANUALLY_TRAP_SIG=1
+SuccessExitStatus=130
 Restart=on-failure
 RestartSec=10
 KillSignal=SIGINT
