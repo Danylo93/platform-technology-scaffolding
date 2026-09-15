@@ -42,6 +42,20 @@ access outside Git. Existing SSH keys and credentials are never generated or cop
 
 ## Verification
 
+After registering the existing runner in ~/actions-runner, its user service can
+be installed without changing system services:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp scripts/platform-lab-runner.service ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable --now platform-lab-runner.service
+loginctl enable-linger "$USER"
+```
+
+The service enables run.sh's signal trap so stopping systemd also stops the
+runner listener cleanly. lab-control.sh refuses to stop while a job is active.
+
 ```bash
 python3 -m unittest discover -s tests -v
 ```

@@ -1,0 +1,17 @@
+[Unit]
+Description=GitHub Actions runner for platform-lab
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/actions-runner
+ExecStart=%h/actions-runner/run.sh
+Environment=RUNNER_MANUALLY_TRAP_SIG=1
+Restart=on-failure
+RestartSec=10
+KillSignal=SIGINT
+KillMode=mixed
+TimeoutStopSec=300
+
+[Install]
+WantedBy=default.target
