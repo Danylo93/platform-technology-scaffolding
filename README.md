@@ -60,6 +60,16 @@ runner listener cleanly. lab-control.sh refuses to stop while a job is active.
 python3 -m unittest discover -s tests -v
 ```
 
+After deployment, verify all environments and temporary port-forwards without
+changing desired state (use the actual image tag and deployment_files commit):
+
+```bash
+python3 scripts/verify-lab.py --image-tag IMAGE_SHA --revision GITOPS_SHA
+```
+
+The verification checks Argo revision/health, replica counts, the same image
+digest across environments, and both HTTP endpoints. It closes all port-forwards.
+
 The lab also verifies a rendered service with npm ci/test/audit, Docker build,
 HTTP requests, Helm lint/template and Kubernetes server dry-run in all environments.
 The existing skeleton/openshift files remain reference material and are excluded
