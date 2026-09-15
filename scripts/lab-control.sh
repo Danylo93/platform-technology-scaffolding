@@ -26,6 +26,13 @@ case "$action" in
     done
     "$ready" || { echo 'Cluster did not become Ready' >&2; exit 1; }
     curl --fail --silent --show-error http://localhost:5000/v2/
+    kubectl --context "$context" -n argocd wait --for=condition=Ready pods --all --timeout=180s
+    for environment in ti hml prod; do
+      kubectl --context "$context" -n "platform-$environment" wait \
+        --for=condition=Ready pods -l app=platform-sample-application --timeout=180s
+      kubectl --context "$context" -n "platform-$environment" rollout status \
+        deployment/platform-sample-application --timeout=180s
+    done
     systemctl --user start "$runner"
     ;;
   stop)
