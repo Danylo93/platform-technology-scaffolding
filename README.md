@@ -3,6 +3,14 @@
 A lightweight Node 22 Golden Path for Docker, Kind, Distribution registry:3,
 GitHub Actions and Argo CD. No Backstage, CRC, Harbor or GitLab server is needed.
 
+## CKAD practice
+
+The Portuguese learning track in [ckad/README.md](ckad/README.md) provides
+concepts, six reproducible incidents, six construction challenges and a live
+checker using the sample image. Exercises run only in ckad-practice; the main
+TI/HML/PROD environments remain managed by Argo. Start with incident 01 and
+inspect the evidence before opening hints or the scenario source.
+
 ## Generate a service
 
 ```bash
