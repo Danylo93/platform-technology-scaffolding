@@ -11,8 +11,10 @@ cd ~/platform-lab/platform-technology-scaffolding/ckad
 python3 lab.py status
 ```
 
-Leia EXERCICIOS.md e investigue o incidente 01. Nao abra lab.py ou DICAS.md
-antes da primeira tentativa: eles contem detalhes que revelam as falhas.
+Leia [EXERCICIOS.md](EXERCICIOS.md) e investigue o incidente 01. Cada desafio
+inclui por que praticar, por onde comecar e um link para suas dicas graduais.
+Abra [DICAS.md](DICAS.md) na visualizacao Markdown e expanda somente a dica
+necessaria depois de tentar. Nao leia lab.py antes: ele revela as falhas.
 
 ```bash
 python3 lab.py check
